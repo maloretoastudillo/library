@@ -1,0 +1,36 @@
+<div class="card text-center mt-3">
+    <h5 class="card-header"><strong><%= @book.title %></strong></h5>
+    <div class="card-body">
+        <h5 class="card-title"><%= @book.author %></h5>
+        <p class="card-text">Estado: <%=@book.status  %></p>
+    </div>
+    <%= link_to 'Ir a mi biblioteca', books_path %>
+</div>
+<br>
+<br>
+<h5>Historial de préstamos</h5>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Prestado a:</th>
+      <th scope="col">Fechah de préstamo</th>
+      <th scope="col">Fecha de devolución</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @borrowings.each do |borrowing| %>
+        <tr> 
+            <th scope="row"><%= borrowing.borrowed_to %></th>
+            <td><%= borrowing.borrowed_at %></td>
+            <td><%= borrowing.returned_at %></td>
+            <td><%= link_to 'Editar', edit_borrowing_path(borrowing.id) %></td>
+            <td><%= link_to 'Eliminar', borrowing_path(borrowing.id), method: :delete, data: {confirm: "¿Está seguro de eliminar de sus registros el préstamo a: #{borrowing.borrowed_to}?"}  %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Ingresar nuevo préstamo', new_borrowing_path %>
+
+   
